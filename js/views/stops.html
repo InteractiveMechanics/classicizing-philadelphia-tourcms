@@ -1,0 +1,15 @@
+<h1>All Stops</h1>
+<div class="stop-list">
+    <div ng-repeat="stop in stops" class="stop" data-id="{{ stop.sid }}">
+        <div class="row">
+            <div class="col-sm-10">
+                <h3>{{stop.title}}</h3>
+                <p>{{stop.status}}</p>
+            </div>
+            <div class="col-sm-2">
+                <button ng-click="editStop()" class="btn btn-info edit"><span class="glyphicon glyphicon-pencil"></span></button>
+                <button ng-click="deleteStop()" class="btn btn-danger delete"><span class="glyphicon glyphicon-trash"></span></button>
+            </div>
+        </div>
+    </div>
+</div>

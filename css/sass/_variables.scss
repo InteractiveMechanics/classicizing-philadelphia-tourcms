@@ -1,0 +1,20 @@
+// Colors
+$mid-gray               : #808080;
+$light-gray             : #f1f2f2;
+
+// Fonts
+$primary-font           : "Open Sans", Georgia, serif;
+
+// Sizes
+$sidebar-width          : 300px;
+
+// Media Queries
+$screen-xs			    : "(max-width: 767px)";
+$screen-sm			    : "(min-width: 768px) and (max-width: 991px)";
+$screen-md			    : "(min-width: 992px) and (max-width: 1199px)";
+$screen-lg			    : "(min-width: 1200px)";
+$screen-xl              : "(min-width: 1440px)";
+
+// Transitions
+$fast-trans             : all 0.25s;
+$slow-trans             : all 0.5s;
