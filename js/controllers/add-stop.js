@@ -1,4 +1,8 @@
-cms.controller('AddStopController', function($scope, $http, $location, $sanitize){
+cms.controller('AddStopController', function($scope, $http, $location, $sanitize, $rootScope){
+    if (!$rootScope.user) {
+        $location.path('/login');
+    }
+
     $scope.content = [];
     $scope.content[0] = {};
     $scope.content[1] = {};

@@ -1,4 +1,8 @@
-cms.controller('StopListController', function($scope, $http, $location){
+cms.controller('StopListController', function($scope, $http, $location, $rootScope){
+    if (!$rootScope.user) {
+        $location.path('/login');
+    }
+
     $http
         .get('/tours-cms/api/stops')
         .success(function(response) {

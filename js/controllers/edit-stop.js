@@ -1,4 +1,8 @@
-cms.controller('EditStopController', function($scope, $http, $location, $sanitize, Upload){
+cms.controller('EditStopController', function($scope, $http, $location, $sanitize, Upload, $rootScope){
+    if (!$rootScope.user) {
+        $location.path('/login');
+    }
+
     var path = $location.path();
     var sid = path.split('/').pop();
 

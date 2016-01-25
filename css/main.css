@@ -30,9 +30,11 @@ section.wrapper {
     top: 50px;
     bottom: 0;
     position: fixed; }
+    section.wrapper > aside + main {
+      left: 300px; }
   section.wrapper > main {
     position: absolute;
-    left: 300px;
+    left: 0;
     right: 0;
     padding: 50px; }
     section.wrapper > main h1 {
@@ -83,5 +85,11 @@ aside ul {
   aside ul li > ul > li > a {
     padding-left: 40px;
     font-size: 16px; }
+
+.login-form h2 {
+  margin-top: 0;
+  margin-bottom: 15px; }
+.login-form .form-control {
+  margin-bottom: 15px; }
 
 /*# sourceMappingURL=main.css.map */

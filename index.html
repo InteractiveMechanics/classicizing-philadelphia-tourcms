@@ -22,15 +22,18 @@
     <script src="js/lib/ngFileUpload/ng-file-upload.min.js"></script>
 
     <script src="js/app.js"></script>
+
     <script src="js/controllers/dashboard.js"></script>
     <script src="js/controllers/stop-list.js"></script>    
     <script src="js/controllers/add-stop.js"></script>
     <script src="js/controllers/edit-stop.js"></script>
+    <script src="js/controllers/login.js"></script>
+    <script src="js/controllers/logout.js"></script>
 </head>
 <body>
     <header ng-include="'js/views/partials/header.html'"></header>
     <section class="wrapper">
-        <aside ng-include="'js/views/partials/nav.html'"></aside>
+        <aside ng-if="$root.user" ng-include="'js/views/partials/nav.html'"></aside>
         <main ng-view></main>
     </section>
 </body>

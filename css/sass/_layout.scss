@@ -19,10 +19,14 @@ section.wrapper {
         top: 50px;
         bottom: 0;
         position: fixed;
+
+        & + main {
+            left: $sidebar-width;
+        }
     }
     > main {
         position: absolute;
-        left: $sidebar-width;
+        left: 0;
         right: 0;
         padding: 50px;
 
