@@ -163,10 +163,10 @@
                 cid,
                 sid,
                 type,
-                body,
                 content.fid,
                 file.file_name,
-                file.file_type
+                file.file_type,
+                body
             FROM 
                 content 
             LEFT JOIN
@@ -344,7 +344,7 @@
                 content 
             SET 
                 body=:body, 
-                fid=:fid,
+                fid=:fid
             WHERE 
                 cid=:cid";
         try {

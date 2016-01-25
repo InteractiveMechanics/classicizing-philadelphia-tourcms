@@ -17,7 +17,7 @@ cms.controller('EditStopController', function($scope, $http, $location, $sanitiz
             $scope.content = response;
     });
     
-    $scope.upload = function (files) {
+    $scope.upload = function (files, source) {
         if (files && files.length) {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
@@ -37,7 +37,23 @@ cms.controller('EditStopController', function($scope, $http, $location, $sanitiz
                     promise.success(function(data, status, headers, config){
                         if (status == 200){
             		        console.log("File added to database.");
-                            $scope.stop.fid = data;
+                            switch (source){
+                                case 'stop':
+                                    $scope.stop.fid = data;
+                                    break;
+                                case 'content[0]':
+                                    $scope.content[0].fid = data;
+                                    break;
+                                case 'content[1]':
+                                    $scope.content[1].fid = data;
+                                    break;
+                                case 'content[2]':
+                                    $scope.content[2].fid = data;
+                                    break;
+                                case 'content[3]':
+                                    $scope.content[3].fid = data;
+                                    break;
+                            }
                         } else {
             				console.log("Unable to add file to database.");
                         }
@@ -51,6 +67,14 @@ cms.controller('EditStopController', function($scope, $http, $location, $sanitiz
         var promise = $http.put('/tours-cms/api/stops/' + sid, $scope.stop);
         promise.success(function(data, status, headers, config){
             if (status == 200){
+
+                angular.forEach($scope.content, function(value, key){
+                    var promise = $http.put('/tours-cms/api/stops/' + sid + '/content/' + parseInt(value.cid), value);
+                    promise.success(function(data, status, headers, config){
+                        console.log("Stop content updated.");
+                    });
+                });
+                
 		        console.log("Stop updated.");
                 $location.path('/stops');
             } else {

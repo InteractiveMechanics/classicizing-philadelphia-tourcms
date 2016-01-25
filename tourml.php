@@ -1,5 +1,6 @@
 <?php
     header("Content-type: text/xml");
+    header("Access-Control-Allow-Origin: *");
     echo '<?xml version="1.0" encoding="UTF-8"?>';
     echo '<tourml:Tour 
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -47,6 +48,10 @@
         $file_name   = $stop->file_name;
         $file_type   = $stop->file_type;
 
+        $curl       = 'http://staging.interactivemechanics.com/tours-cms/api/stops/' . $sid . '/content';
+        $cjson      = file_get_contents($curl);
+        $content    = json_decode($cjson);
+
         // Build stop with metadata
         echo '<tourml:Stop tourml:id="stop_' . $sid . '" tourml:view="web_stop">';
 		    echo '<tourml:Title xml:lang="en">' . $title . '</tourml:Title>';
@@ -70,7 +75,23 @@
         echo '<tourml:Asset tourml:id="stop_' . $sid . '-html">';
             echo '<tourml:Content>';
                 echo '<tourml:Data><![CDATA[';
-                    
+                    echo '<div data-role="tabs" id="tabs">';
+                        echo '<div data-role="navbar">';
+                            echo '<ul>';
+                            echo '<li><a href="#overview" data-ajax="false" data-src="http://staging.interactivemechanics.com/tours-cms/files/' . $content[0]->file_name . '" class="ui-btn-active">Overview</a></li>';
+                            echo '<li><a href="#building" data-ajax="false" data-src="http://staging.interactivemechanics.com/tours-cms/files/' . $content[1]->file_name . '">Building</a></li>';
+                            echo '<li><a href="#models" data-ajax="false" data-src="http://staging.interactivemechanics.com/tours-cms/files/' . $content[2]->file_name . '">Models</a></li>';
+                            echo '<li><a href="#architect" data-ajax="false" data-src="http://staging.interactivemechanics.com/tours-cms/files/' . $content[3]->file_name . '">Architect</a></li>';
+                            echo '</ul>';
+                        echo '</div>';
+
+                        foreach ($content as $c){
+                            echo '<div id="' . $c->type . '">';
+                            echo $c->body;
+                            echo '</div>';
+                        }
+                        
+                    echo '</div>';
                 echo ']]></tourml:Data>';
             echo '</tourml:Content>';
     	echo '</tourml:Asset>';
