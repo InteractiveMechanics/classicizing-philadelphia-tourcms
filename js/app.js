@@ -1,4 +1,4 @@
-var cms = angular.module('cms', ['ngRoute', 'appControllers', 'ngSanitize', 'ngFileUpload', 'ui.bootstrap']);
+var cms = angular.module('cms', ['ngRoute', 'appControllers', 'ngSanitize', 'ngFileUpload', 'ui.bootstrap', 'textAngular']);
 var appControllers = angular.module('appControllers', []);
 
 cms.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
