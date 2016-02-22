@@ -16,12 +16,15 @@
 
     $app->post('/stops', postStop);
     $app->post('/stops/:sid/content', postStopContent);
+    $app->post('/tours', postTour);
     $app->post('/files', postFile);
 
     $app->put('/stops/:sid', updateStop);
     $app->put('/stops/:sid/content/:cid', updateStopContent);
+    $app->put('/tours/:tid', updateTour);
 
     $app->delete('/stops/:sid', deleteStop);
+    $app->delete('/tours/:tid', deleteTour);
 
     $app->run();
 
@@ -32,9 +35,20 @@
                 title,
                 description,
                 status,
-                last_updated
+                last_updated,
+                latitude,
+                longitude,
+                zoom,
+                tour.fid,
+                file.file_name,
+                file.file_type,
+                stops
             FROM 
                 tour 
+            LEFT JOIN
+                file
+            ON
+                tour.fid = file.fid
             ORDER BY tid DESC';
         try {
             $db     = getDB();
@@ -54,9 +68,20 @@
                 title,
                 description,
                 status,
-                last_updated
+                last_updated,
+                latitude,
+                longitude,
+                zoom,
+                tour.fid,
+                file.file_name,
+                file.file_type,
+                stops
             FROM 
                 tour 
+            LEFT JOIN
+                file
+            ON
+                tour.fid = file.fid
             WHERE 
                 tour.tid = ' . $tid;
         try {
@@ -73,15 +98,24 @@
     function getTourStops($tid) {
         $sql = '
             SELECT
-                tid,
+                sid,
                 title,
                 description,
                 status,
-                last_updated
+                last_updated,
+                latitude,
+                longitude,
+                stop.fid,
+                file.file_name,
+                file.file_type
             FROM 
                 stop 
             NATURAL JOIN 
                 tour_stop 
+            LEFT JOIN
+                file
+            ON
+                stop.fid = file.fid
             WHERE 
                 tour_stop.tid = ' . $tid;
         try {
@@ -267,6 +301,40 @@
             echo json_encode($e->getMessage()); 
         }
     }
+    function postTour() {
+        global $app;
+
+        $req    = json_decode($app->request->getBody());
+        $posts  = get_object_vars($req);
+        $date   = date('Y-m-d h:i:s', time());
+     
+        $sql = "
+            INSERT INTO 
+                tour (`title`, `description`, `latitude`, `longitude`, `zoom`, `status`, `last_updated`, `fid`, `stops`) 
+            VALUES 
+                (:title, :description, :latitude, :longitude, :zoom, :status, :last_updated, :fid, :stops)";
+        try {
+            $db = getDB();
+            $stmt = $db->prepare($sql);  
+            $stmt->bindParam('title', html_entity_decode($posts['title']));
+            $stmt->bindParam('description', html_entity_decode($posts['description']));
+            $stmt->bindParam('latitude', $posts['latitude']);
+            $stmt->bindParam('longitude', $posts['longitude']);
+            $stmt->bindParam('zoom', $posts['zoom']);
+            $stmt->bindParam('stops', json_encode($posts['stops']));
+            $stmt->bindParam('status', $posts['status']);
+            $stmt->bindParam('fid', $posts['fid']);
+            $stmt->bindParam('last_updated', $date);
+            $stmt->execute();
+
+            $result = $db->lastInsertId();
+            print_r($result);
+
+            $db = null;
+        } catch(PDOException $e) {
+            echo json_encode($e->getMessage()); 
+        }
+    }
     function postFile() {
         global $app;
 
@@ -360,6 +428,48 @@
             echo json_encode($e->getMessage()); 
         }
     }
+    function updateTour($tid) {
+        global $app;
+
+        $req    = json_decode($app->request->getBody());
+        $posts  = get_object_vars($req);
+        $date   = date('Y-m-d h:i:s', time());
+     
+        $sql = "
+            UPDATE 
+                tour 
+            SET 
+                title=:title, 
+                description=:description, 
+                latitude=:latitude, 
+                longitude=:longitude,
+                zoom=:zoom,
+                status=:status, 
+                fid=:fid,
+                stops=:stops,
+                last_updated=:last_updated
+            WHERE 
+                tid=:tid";
+        try {
+            $db = getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam('tid', $tid);
+            $stmt->bindParam('title', html_entity_decode($posts['title']));
+            $stmt->bindParam('description', html_entity_decode($posts['description']));
+            $stmt->bindParam('latitude', $posts['latitude']);
+            $stmt->bindParam('longitude', $posts['longitude']);
+            $stmt->bindParam('zoom', $posts['zoom']);
+            $stmt->bindParam('status', $posts['status']);
+            $stmt->bindParam('stops', json_encode($posts['stops']));
+            $stmt->bindParam('fid', $posts['fid']);
+            $stmt->bindParam('last_updated', $date);
+            $stmt->execute();
+
+            $db = null;
+        } catch(PDOException $e) {
+            echo json_encode($e->getMessage()); 
+        }
+    }
 
 
     function deleteStop($sid) {
@@ -372,6 +482,23 @@
             $db = getDB();
             $stmt = $db->prepare($sql);  
             $stmt->bindParam('sid', $sid);
+            $stmt->execute();
+
+            $db = null;
+        } catch(PDOException $e) {
+            echo json_encode($e->getMessage());
+        }
+    }
+    function deleteTour($tid) {
+        $sql = "
+            DELETE FROM 
+                tour 
+            WHERE 
+                tid=:tid";
+        try {
+            $db = getDB();
+            $stmt = $db->prepare($sql);  
+            $stmt->bindParam('tid', $tid);
             $stmt->execute();
 
             $db = null;

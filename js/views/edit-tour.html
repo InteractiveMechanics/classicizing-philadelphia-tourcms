@@ -1,0 +1,57 @@
+<h1>{{ tour.title ? tour.title : 'Add New Tour' }}</h1>
+<form name="edit-stop-form" ng-submit="editStopForm()" novalidate>
+    <h2>Details</h2>
+    <div class="form-group">
+        <label>Tour Title</label>
+        <input type="text" name="title" class="form-control input-lg" value="{{ tour.title }}" ng-model="tour.title" ng-required="true" required="required" />
+    </div>
+    <div class="form-group">
+        <label>Tour Description</label>
+        <textarea name="desc" class="form-control input-lg" ng-model="tour.description" ng-required="true" required="required">{{ tour.description }}</textarea>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Tour Center Latitude</label>
+                <input type="text" name="latitude" class="form-control input-lg" value="{{ tour.latitude }}" ng-model="tour.latitude" ng-required="true" required="required" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Tour Center Longitude</label>
+                <input type="text" name="longitude" class="form-control input-lg" value="{{ tour.longitude }}" ng-model="tour.longitude" ng-required="true" required="required" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Tour Default Zoom</label>
+                <input type="text" name="longitude" class="form-control input-lg" value="{{ tour.zoom }}" ng-model="tour.zoom" ng-required="true" required="required" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Tour Image</label>
+                <div class="thumbnail"><img ngf-src="file[0]" ng-src="{{ tour.file_name ? './files/' + tour.file_name : '' }}"></div>
+                <div class="btn btn-primary" ngf-select ng-model="file" ngf-change="upload($files, 'stop')">Upload image file</div>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    <h2>Stops:</h2>
+    <div class="row">
+        <div class="tour-stops col-sm-6" ng-repeat="s in stops">
+            <div class="checkbox">
+                <label><input type="checkbox" checklist-model="tour.stops" checklist-value="s.sid"> {{ s.title }}</label>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    <div class="center-block">
+        <input type="hidden" value="2" ng-model="tour.status" />
+        <button ng-click="submitTour()" class="btn btn-primary">Save Tour</button>
+    </div>
+</form>

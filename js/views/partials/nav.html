@@ -2,11 +2,11 @@
     <li ng-class="{active: activetab=='/dashboard'}">
         <a ng-href="dashboard">Dashboard</a>
     </li>
-    <li class="hidden">
+    <li>
         <a ng-href="tours">Tours</a>
         <ul>
-            <li><a ng-href="tours">View All Tours</a></li>
-            <li><a ng-href="tours/add">Add New Tour</a></li>
+            <li ng-class="{active: activetab=='/tours'}"><a ng-href="tours">View All Tours</a></li>
+            <li ng-class="{active: activetab=='/tours/add'}"><a ng-href="tours/add">Add New Tour</a></li>
         </ul>
     </li>
     <li>

@@ -1,1 +1,15 @@
 <h1>All Tours</h1>
+<div class="stop-list">
+    <div ng-repeat="tour in tours" class="stop" data-id="{{ tour.tid }}">
+        <div class="row">
+            <div class="col-sm-10">
+                <h3>{{tour.title}}</h3>
+                <p>{{tour.description}}</p>
+            </div>
+            <div class="col-sm-2">
+                <button ng-click="editTour()" class="btn btn-info edit"><span class="glyphicon glyphicon-pencil"></span></button>
+                <button ng-click="deleteTour()" class="btn btn-danger delete"><span class="glyphicon glyphicon-trash"></span></button>
+            </div>
+        </div>
+    </div>
+</div>

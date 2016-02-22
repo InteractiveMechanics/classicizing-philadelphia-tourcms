@@ -1,4 +1,4 @@
-var cms = angular.module('cms', ['ngRoute', 'appControllers', 'ngSanitize', 'ngFileUpload', 'ui.bootstrap', 'textAngular']);
+var cms = angular.module('cms', ['ngRoute', 'appControllers', 'checklist-model', 'ngSanitize', 'ngFileUpload', 'ui.bootstrap', 'textAngular']);
 var appControllers = angular.module('appControllers', []);
 
 cms.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
@@ -7,9 +7,20 @@ cms.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
             templateUrl: 'js/views/dashboard.html',
             controller: 'DashboardController'
         })
+
         .when('/tours', {
-            templateUrl: 'js/views/tours.html'
+            templateUrl: 'js/views/tours.html',
+            controller: 'TourListController'
         })
+        .when('/tours/add', {
+            templateUrl: 'js/views/edit-tour.html',
+            controller: 'AddTourController'
+        })
+        .when('/tours/edit/:sid', {
+            templateUrl: 'js/views/edit-tour.html',
+            controller: 'EditTourController'
+        })
+
         .when('/stops', {
             templateUrl: 'js/views/stops.html',
             controller: 'StopListController'
@@ -22,6 +33,7 @@ cms.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
             templateUrl: 'js/views/edit-stop.html',
             controller: 'EditStopController'
         })
+
         .when('/login', {
             templateUrl: 'js/views/login.html',
             controller: 'LoginController'

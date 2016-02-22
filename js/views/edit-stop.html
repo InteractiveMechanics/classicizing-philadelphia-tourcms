@@ -3,23 +3,23 @@
     <h2>Details</h2>
     <div class="form-group">
         <label>Stop Title</label>
-        <input type="text" name="title" class="form-control input-lg" value="{{ stop.title }}" ng-model="stop.title" ng-required="true" />
+        <input type="text" name="title" class="form-control input-lg" value="{{ stop.title }}" ng-model="stop.title" ng-required="true" required="required" />
     </div>
     <div class="form-group">
         <label>Stop Description</label>
-        <textarea name="desc" class="form-control input-lg" ng-model="stop.description" ng-required="true">{{ stop.description }}</textarea>
+        <textarea name="desc" class="form-control input-lg" ng-model="stop.description" ng-required="true" required="required">{{ stop.description }}</textarea>
     </div>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
                 <label>Stop Latitude</label>
-                <input type="text" name="latitude" class="form-control input-lg" value="{{ stop.latitude }}" ng-model="stop.latitude" ng-required="true" />
+                <input type="text" name="latitude" class="form-control input-lg" value="{{ stop.latitude }}" ng-model="stop.latitude" ng-required="true" required="required" />
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <label>Stop Longitude</label>
-                <input type="text" name="longitude" class="form-control input-lg" value="{{ stop.longitude }}" ng-model="stop.longitude" ng-required="true" />
+                <input type="text" name="longitude" class="form-control input-lg" value="{{ stop.longitude }}" ng-model="stop.longitude" ng-required="true" required="required" />
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-sm-9">
                         <label>Section Text</label>
-                        <text-angular name="content0body" ng-model="content[0].body" ng-required="true"></text-angular>
+                        <text-angular name="content0body" ng-model="content[0].body" ng-required="true" required="required"></text-angular>
                     </div>
                     <div class="col-sm-3">
                         <label>Section Image</label>
@@ -56,7 +56,7 @@
                 <div class="row">
                     <div class="col-sm-9">
                         <label>Section Text</label>
-                        <text-angular name="content1body" ng-model="content[1].body" ng-required="true"></text-angular>
+                        <text-angular name="content1body" ng-model="content[1].body" ng-required="true" required="required"></text-angular>
                     </div>
                     <div class="col-sm-3">
                         <label>Section Image</label>
@@ -71,7 +71,7 @@
                 <div class="row">
                     <div class="col-sm-9">
                         <label>Section Text</label>
-                        <text-angular name="content2body" ng-model="content[2].body" ng-required="true"></text-angular>
+                        <text-angular name="content2body" ng-model="content[2].body" ng-required="true" required="required"></text-angular>
                     </div>
                     <div class="col-sm-3">
                         <label>Section Image</label>
@@ -86,7 +86,7 @@
                 <div class="row">
                     <div class="col-sm-9">
                         <label>Section Text</label>
-                        <text-angular name="content3body" ng-model="content[3].body" ng-required="true"></text-angular>
+                        <text-angular name="content3body" ng-model="content[3].body" ng-required="true" required="required"></text-angular>
                     </div>
                     <div class="col-sm-3">
                         <label>Section Image</label>
@@ -99,34 +99,8 @@
     </tabset>
     <hr/>
 
-    <h2>Settings</h2>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label>Stop Status</label>
-                <div class="radio">
-                    <label>
-                        <input type="radio" ng-model="stop.status" value="1" disabled> Draft
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" ng-model="stop.status" value="2"> Published
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" ng-model="stop.status" value="3" disabled> Archived
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <label>Last Updated On</label>
-            <p>{{ stop.last_updated }}</p>
-        </div>
-    </div>
     <div class="center-block">
-        <button ng-click="submitStop()" class="btn btn-primary">Edit Stop</button>
+        <input type="hidden" value="2" ng-model="stop.status" />
+        <button ng-click="submitStop()" class="btn btn-primary">Save Stop</button>
     </div>
 </form>
