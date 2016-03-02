@@ -39,6 +39,7 @@ cms.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
             controller: 'LoginController'
         })
         .when('/logout', {
+            templateUrl: 'js/views/login.html',
             controller: 'LogoutController'
         })
         .otherwise({

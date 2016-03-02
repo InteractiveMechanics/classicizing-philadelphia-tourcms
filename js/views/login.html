@@ -2,8 +2,11 @@
     <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3">
         <form class="well"> 
             <h2>Login</h2>
+
+            <div class="alert alert-danger" role="alert" ng-if="error">{{ error }}</div>
+            
             <label for="email">Email</label>
-            <input class="form-control input-lg" id="email" type="text" ng-model="loginEmail" />
+            <input class="form-control input-lg" id="email" type="text" ng-model="loginEmail" required />
             
             <label for="password">Password</label>
             <input class="form-control input-lg" id="password" type="password" ng-model="loginPassword" />
