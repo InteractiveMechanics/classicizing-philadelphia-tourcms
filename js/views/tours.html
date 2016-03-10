@@ -8,7 +8,11 @@
             </div>
             <div class="col-sm-2">
                 <button ng-click="editTour()" class="btn btn-info edit"><span class="glyphicon glyphicon-pencil"></span></button>
-                <button ng-click="deleteTour()" class="btn btn-danger delete"><span class="glyphicon glyphicon-trash"></span></button>
+                <button popover-template="'popover.html'" popover-trigger="focus" popover-title="Confirm delete" class="btn btn-danger delete"><span class="glyphicon glyphicon-trash"></span></button>
+                <script type="text/ng-template" id="popover.html">
+                    <p>Are you sure you want to delete this tour?</p>
+                    <button type='button' ng-click='deleteTour()' class='btn btn-danger'>Delete</button>
+                </script>
             </div>
         </div>
     </div>
